@@ -1,4 +1,4 @@
-# 🍔 Frozen Food & Snack E-Commerce - AI Vibe Coding Prompt
+# 🍔 Frozen Food & Snack E-Commerce - Project Prompt
 
 ## 📌 Project Overview
 
