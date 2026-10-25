@@ -2,178 +2,126 @@
 
 ## Aplikasi Web E-Commerce Frozen Food & Snack
 
-## 1. Deskripsi Umum
+**File diagram:** [`use-case-diagram.drawio`](./use-case-diagram.drawio)  
+**Pratinjau:** [`New v2 Usecase diagram.png`](<./New v2 Usecase diagram.png>)
 
-Use Case Diagram ini menggambarkan interaksi antara dua aktor utama,
-yaitu **Pelanggan (Customer)** dan **Admin**, dengan sistem Aplikasi Web
-E-Commerce Frozen Food & Snack. Diagram menunjukkan fungsi-fungsi yang
-dapat diakses oleh masing-masing aktor, mulai dari autentikasi, melihat
-produk, melakukan transaksi, hingga pengelolaan produk dan pesanan.
+![Use Case Diagram](<./New v2 Usecase diagram.png>)
 
-Pelanggan menggunakan aplikasi untuk melihat katalog dan melakukan
-pembelian produk frozen food dan snack. Admin bertanggung jawab
-mengelola produk, memantau pesanan, memperbarui status pesanan, serta
-melihat informasi pelanggan.
+Diagram ini disusun berdasarkan **SRS Aplikasi Web E-Commerce Frozen Food & Snack v1.0**, khususnya Bagian 4 (Fitur Sistem), dan dapat langsung dibuka serta diedit di draw.io. Diagram memuat **29 use case**, **14 association**, **6 `«include»`**, dan **11 `«extend»`**.
 
-## 2. Aktor Sistem
+---
 
-  -----------------------------------------------------------------------
-  Aktor                               Deskripsi
-  ----------------------------------- -----------------------------------
-  **Pelanggan (Customer)**            Pengguna yang mengakses aplikasi
-                                      untuk melihat katalog produk,
-                                      mencari produk, mengelola keranjang
-                                      belanja, melakukan checkout, dan
-                                      melihat riwayat pesanan.
+## 1. Aktor
 
-  **Admin**                           Pengguna yang mengelola operasional
-                                      toko melalui aplikasi, termasuk
-                                      dashboard, produk, pesanan, dan
-                                      informasi pelanggan.
-  -----------------------------------------------------------------------
+| Aktor | Deskripsi |
+|---|---|
+| **Pelanggan (Customer)** | Pengguna yang menelusuri katalog, melihat dan mengubah isi keranjang, melakukan checkout, serta melihat riwayat pesanan. |
+| **Admin** | Pengguna yang mengelola produk, memproses pesanan, melihat dashboard, dan melihat daftar pelanggan. |
 
-## 3. Use Case Pelanggan
+`Login` dan `Logout` digunakan bersama oleh kedua aktor dan ditempatkan pada
+kelompok **Autentikasi** di bagian tengah atas diagram.
 
-### 3.1 Autentikasi
+---
 
-Bagian autentikasi menggambarkan proses pelanggan menggunakan akun untuk
-mengakses aplikasi.
+## 2. Use Case Pelanggan
 
--   **Registrasi Akun:** Pelanggan membuat akun baru untuk menggunakan
-    aplikasi.
--   **Login:** Pelanggan masuk ke aplikasi menggunakan akun yang telah
-    terdaftar.
--   **Logout:** Pelanggan mengakhiri sesi penggunaan aplikasi.
+### 2.1 Autentikasi
+- Registrasi Akun
+- Login *(shared dengan Admin)*
+- Logout *(shared dengan Admin)*
 
-### 3.2 Katalog Produk
+### 2.2 Katalog Produk
+- **Melihat Katalog Produk** — use case utama
+- **Menambahkan Produk ke Keranjang** — use case utama
+- Melihat Detail Produk — `«extend»` ke *Melihat Katalog Produk*
+- Mencari / Memfilter Produk — `«extend»` ke *Melihat Katalog Produk*
 
-Bagian katalog produk menyediakan fitur bagi pelanggan untuk mencari dan
-melihat informasi produk yang tersedia.
+### 2.3 Keranjang Belanja
+- **Melihat Isi Keranjang** — use case utama
+  - `«extend»` dari Mengubah Jumlah Produk
+  - `«extend»` dari Menghapus Produk dari Keranjang
 
--   **Melihat Katalog Produk:** Pelanggan melihat daftar produk yang
-    ditawarkan toko.
--   **Melihat Detail Produk:** Pelanggan melihat informasi lebih lengkap
-    mengenai produk yang dipilih.
--   **Mencari / Memfilter Produk:** Pelanggan mencari atau menyaring
-    produk berdasarkan kriteria tertentu.
+### 2.4 Checkout dan Pesanan
+- **Checkout / Membuat Pesanan** — use case utama
+  - `«include»` Mengisi Alamat Pengiriman
+  - `«include»` Melihat Konfirmasi Pesanan
 
-### 3.3 Keranjang Belanja
+### 2.5 Pesanan Saya
+- **Melihat Riwayat Pesanan** — use case utama
+  - `«extend»` dari Melihat Detail Pesanan Saya
 
-Bagian keranjang belanja memungkinkan pelanggan mengelola produk yang
-akan dibeli sebelum checkout.
+---
 
--   **Mengelola Keranjang Belanja:** Pelanggan mengelola produk yang
-    telah dimasukkan ke keranjang.
--   **Menambahkan Produk ke Keranjang:** Pelanggan memasukkan produk
-    yang ingin dibeli.
--   **Mengubah Jumlah Produk:** Pelanggan menyesuaikan jumlah produk
-    yang akan dibeli.
--   **Menghapus Produk dari Keranjang:** Pelanggan menghapus produk yang
-    tidak ingin dibeli.
--   **Melihat Keranjang Belanja:** Pelanggan melihat daftar produk yang
-    dipilih beserta jumlah dan total belanja.
+## 3. Use Case Admin
 
-### 3.4 Checkout dan Pesanan
+### 3.1 Dashboard
+- **Melihat Dashboard** — use case utama
+  - `«include»` Melihat Total Pendapatan
+  - `«include»` Melihat Total Pesanan
+  - `«include»` Melihat Total Pelanggan
+  - `«include»` Melihat Pesanan Terbaru
 
-Bagian checkout dan pesanan menggambarkan proses pelanggan menyelesaikan
-pembelian melalui aplikasi.
+### 3.2 Manajemen Produk
+- **Melihat Daftar Produk** — use case utama
+  - `«extend»` dari Menambah Produk
+  - `«extend»` dari Mengubah Produk
+  - `«extend»` dari Menghapus Produk
 
--   **Checkout / Membuat Pesanan:** Pelanggan melanjutkan pembelian
-    produk dari keranjang.
--   **Mengisi Alamat Pengiriman:** Pelanggan memasukkan alamat tujuan
-    pengiriman.
--   **Memilih Metode Pembayaran:** Pelanggan menentukan metode
-    pembayaran yang akan digunakan.
--   **Membuat Pesanan:** Sistem memproses data pembelian menjadi
-    pesanan.
--   **Melihat Konfirmasi Pesanan:** Pelanggan melihat informasi bahwa
-    pesanan berhasil dibuat.
--   **Melihat Riwayat Pesanan:** Pelanggan melihat daftar transaksi yang
-    pernah dilakukan.
--   **Melihat Detail Pesanan:** Pelanggan melihat informasi lengkap
-    pesanan tertentu dari riwayat.
+### 3.3 Manajemen Pesanan
+- **Melihat Semua Pesanan** — use case utama
+  - `«extend»` dari Melihat Detail Pesanan Pelanggan
+  - `«extend»` dari Mengubah Status Pesanan
 
-## 4. Use Case Admin
+### 3.4 Manajemen Pelanggan
+- **Melihat Daftar Pelanggan** — use case utama
+  - `«extend»` dari Melihat Jumlah Pesanan Pelanggan
 
-### 4.1 Dashboard
+---
 
-Dashboard menyediakan ringkasan informasi operasional toko kepada Admin.
+## 4. Jenis Relasi
 
--   **Melihat Dashboard:** Admin melihat ringkasan aktivitas dan
-    performa toko.
--   **Melihat Total Pendapatan:** Admin melihat jumlah pendapatan toko.
--   **Melihat Total Pesanan:** Admin melihat jumlah pesanan yang
-    tercatat.
--   **Melihat Total Pelanggan:** Admin melihat jumlah pelanggan yang
-    terdaftar.
--   **Melihat Pesanan Terbaru:** Admin melihat pesanan yang baru masuk
-    ke sistem.
+| Relasi | Notasi | Makna pada diagram |
+|---|---|---|
+| **Association** | Garis solid tanpa panah | Menghubungkan aktor dengan use case yang dapat diaksesnya. |
+| **`«include»`** | Garis putus-putus dengan panah terbuka, dari use case dasar ke use case yang disertakan | Use case dasar **wajib** menjalankan use case yang disertakan. Contoh: *Checkout* `«include»` *Mengisi Alamat Pengiriman*. |
+| **`«extend»`** | Garis putus-putus dengan panah terbuka, dari use case tambahan ke use case dasar | Use case tambahan bersifat **opsional/kondisional** terhadap use case dasar. Contoh: *Mencari / Memfilter Produk* `«extend»` *Melihat Katalog Produk*. |
 
-### 4.2 Manajemen Produk
+---
 
-Bagian manajemen produk digunakan Admin untuk mengelola informasi produk
-yang ditampilkan kepada pelanggan.
+## 5. Catatan Perancangan
 
--   **Mengelola Produk:** Admin melakukan pengelolaan data produk.
--   **Melihat Daftar Produk:** Admin melihat seluruh produk yang
-    tersedia di sistem.
--   **Menambahkan Produk:** Admin memasukkan produk baru ke katalog.
--   **Mengubah Produk:** Admin memperbarui informasi produk yang sudah
-    ada.
--   **Menghapus Produk:** Admin menghapus produk yang tidak lagi
-    ditawarkan.
+- **Login/Logout tidak diduplikasi.** Keduanya dimodelkan satu kali dan
+  dihubungkan ke Pelanggan maupun Admin agar sesuai dengan satu sistem
+  autentikasi pada SRS (AUTH-5 s.d. AUTH-9).
+- **Dashboard memakai `«include»`.** Empat ringkasan (pendapatan, pesanan,
+  pelanggan, pesanan terbaru) adalah bagian wajib dari dashboard sesuai
+  DSH-1 s.d. DSH-4.
+- **Pembayaran tidak dimodelkan sebagai use case.** SRS menyatakan pembayaran
+  ditangani di luar sistem (AS-2 dan BR-6), sehingga tidak ada use case
+  payment gateway.
+- **Alamat pengiriman dan konfirmasi memakai `«include»`.** Checkout tidak dapat
+  diselesaikan tanpa alamat pengiriman (CHK-2), dan SRS mewajibkan sistem
+  menampilkan konfirmasi pesanan setelah checkout (CHK-8). Keduanya perilaku
+  wajib, sehingga arah panahnya dari *Checkout* ke use case yang disertakan.
+- **CRUD admin memakai `«extend»` dari use case daftar.** *Melihat Daftar
+  Produk* dan *Melihat Semua Pesanan* menjadi use case dasar yang dihubungkan
+  ke Admin. Menambah/mengubah/menghapus produk serta melihat detail/mengubah
+  status pesanan adalah aksi opsional yang memperluas use case dasar tersebut.
+- **Keranjang memakai `«extend»`.** *Melihat Isi Keranjang* adalah use case
+  dasar; mengubah jumlah dan menghapus produk adalah perilaku opsional.
+  Dengan demikian tidak ada lagi use case umbrella "Mengelola ..." yang
+  ambigu.
+- **Detail produk dan detail pesanan memakai `«extend»`.** Keduanya adalah
+  tampilan lanjutan yang dibuka secara opsional dari katalog/riwayat.
+- **Warna diagram:** biru = fitur Pelanggan, oranye = fitur Admin, hijau =
+  fitur Autentikasi yang digunakan bersama.
 
-### 4.3 Manajemen Pesanan
+---
 
-Bagian manajemen pesanan memungkinkan Admin memantau dan menangani
-transaksi pelanggan.
+## 6. Cara Membuka dan Mengedit
 
--   **Mengelola Pesanan:** Admin melakukan pengelolaan pesanan yang
-    masuk.
--   **Melihat Semua Pesanan:** Admin melihat seluruh pesanan pelanggan.
--   **Melihat Detail Pesanan:** Admin melihat informasi lengkap pesanan
-    tertentu.
--   **Mengubah Status Pesanan:** Admin memperbarui status pesanan sesuai
-    proses penanganannya.
-
-Status pesanan yang ditampilkan pada diagram adalah:
-
-`Pending → Diproses → Dikirim → Selesai`
-
-### 4.4 Manajemen Pelanggan
-
-Bagian manajemen pelanggan menyediakan informasi mengenai pelanggan yang
-menggunakan aplikasi.
-
--   **Melihat Daftar Pelanggan:** Admin melihat daftar pelanggan yang
-    terdaftar.
--   **Melihat Jumlah Pesanan Setiap Pelanggan:** Admin melihat jumlah
-    pesanan yang dilakukan pelanggan tertentu.
-
-## 5. Relasi pada Diagram
-
-Diagram menggunakan beberapa jenis relasi:
-
--   **Association:** Garis yang menghubungkan aktor dengan use case
-    untuk menunjukkan fitur yang dapat diakses aktor.
--   **`<<include>>`:** Menunjukkan bahwa suatu use case menyertakan
-    perilaku use case lain sebagai bagian dari prosesnya.
--   **`<<extend>>`:** Menunjukkan bahwa suatu use case menambahkan
-    perilaku pada use case lain dalam kondisi tertentu.
-
-Catatan: Penjelasan ini mengikuti fitur dan relasi yang terlihat pada
-diagram. Ketepatan beberapa relasi `include` dan `extend`, khususnya
-pada autentikasi dan pengelolaan keranjang, perlu diperiksa kembali agar
-sesuai dengan makna UML.
-
-## 6. Kesimpulan
-
-Use Case Diagram Aplikasi Web E-Commerce Frozen Food & Snack memberikan
-gambaran ruang lingkup fungsional sistem serta pembagian akses antara
-Pelanggan dan Admin. Pelanggan menggunakan aplikasi untuk mencari produk
-dan melakukan pembelian, sedangkan Admin mengelola produk, memantau
-transaksi, memperbarui status pesanan, dan melihat informasi pelanggan.
-
-Diagram ini dapat menjadi dasar untuk memahami kebutuhan fungsional
-aplikasi sebelum perancangan lebih lanjut, seperti Activity Diagram,
-Sequence Diagram, dan implementasi sistem.
+1. Buka [draw.io](https://app.diagrams.net) atau aplikasi draw.io Desktop.
+2. Pilih **File → Open From → Device**, lalu pilih `use-case-diagram.drawio`.
+3. Seluruh elemen (aktor, ellipse use case, kotak kelompok, dan garis relasi)
+   merupakan objek native draw.io yang dapat dipindah, diubah teksnya, dan
+   diedit propertinya.
