@@ -1,0 +1,5 @@
+# Konfigurasi lokal OpenCode (MCP draw.io, dll.)
+/opencode.json
+
+# Berkas sistem macOS
+.DS_Store
